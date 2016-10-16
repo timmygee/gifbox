@@ -1,2 +1,2 @@
 # djropbox
-A self hosted django/rest based, secure file receptacle
+A self hosted restful django secure file repository
