@@ -6,4 +6,4 @@
 *.pyc
 
 # Django
-
+*.sqlite3
