@@ -7,3 +7,4 @@
 
 # Django
 *.sqlite3
+snapshots/
