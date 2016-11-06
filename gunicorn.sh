@@ -4,13 +4,6 @@ set -e
 
 HOME=/home/tim
 APP_NAME=djropbox
-DOMAIN_NAME=djropbox.jadedraver.club
-LOGFILE=$HOME/$DOMAIN_NAME/logs/$APP_NAME.log
-LOGDIR=$(dirname $LOGFILE)
-NUM_WORKERS=3
-
-NGINX_TIMEOUT=90
-GUNICORN_PORT=8001
 
 # user/group to run as
 USER=tim
@@ -20,6 +13,14 @@ DJANGO_DIR=$HOME/$APP_NAME/$APP_NAME
 
 cd $DJANGO_DIR
 source $HOME/.virtualenvs/$APP_NAME/bin/activate
+
+DOMAIN_NAME=$DJANGO_PRODUCTION_HOST
+LOGFILE=$HOME/$DOMAIN_NAME/logs/$APP_NAME.log
+LOGDIR=$(dirname $LOGFILE)
+NUM_WORKERS=3
+
+NGINX_TIMEOUT=90
+GUNICORN_PORT=8002
 
 test -d $LOGDIR || mkdir -p $LOGDIR
 set -x
