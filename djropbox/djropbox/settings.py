@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DJANGO_PRODUCTION_HOST = os.environ.get('DJANGO_PRODUCTION_HOST')
+
+if DJANGO_PRODUCTION_HOST:
+    ALLOWED_HOSTS.append(DJANGO_PRODUCTION_HOST)
 
 # Application definition
 
@@ -77,13 +82,16 @@ WSGI_APPLICATION = 'djropbox.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+DJANGO_DATABASE_DEFAULT = os.environ.get('DJANGO_DATABASE_DEFAULT')
+DATABASES = {}
+
+if DJANGO_DATABASE_DEFAULT:
+    DATABASES['default'] = dj_database_url.parse(DJANGO_DATABASE_DEFAULT)
+else:
+    DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
