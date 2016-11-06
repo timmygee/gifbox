@@ -1,10 +1,10 @@
+import os
 from django.db import models
 from datetime import datetime
 
-
 def snapshot_path(instance, filename):
     now = datetime.now()
-    return 'snapshots/{}/{}/{}'.format(now.strftime('%Y-%m-%d'), now.strftime('%H'), filename)
+    return 'snapshots/{}/{}'.format(now.strftime('%Y-%m-%d'), filename)
 
 
 class Image(models.Model):
@@ -14,3 +14,6 @@ class Image(models.Model):
     image_height = models.PositiveSmallIntegerField()
     image_width = models.PositiveSmallIntegerField()
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return os.path.basename(self.image.file.name)
