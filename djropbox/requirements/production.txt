@@ -1,3 +1,4 @@
 -r _base.txt
 
 gunicorn==19.6.0
+psycopg2==2.6.2
