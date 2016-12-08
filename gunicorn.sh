@@ -3,7 +3,7 @@
 set -e
 
 HOME=/home/tim
-APP_NAME=djropbox
+APP_NAME=gifbox
 
 # user/group to run as
 USER=tim

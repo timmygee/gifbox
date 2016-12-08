@@ -35,6 +35,4 @@ class AnimatedGifViewSet(viewsets.ReadOnlyModelViewSet):
         if period:
             filters['period'] = period
 
-        print(filters)
-
         return qs.filter(**filters)
