@@ -1,4 +1,6 @@
 Django==1.10.2
 djangorestframework==3.4.7
 dj-database-url==0.4.1
-Pillow==3.4.2
+Pillow==3.3.3
+django-filter==1.0.1
+django-versatileimagefield==1.6.1

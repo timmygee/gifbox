@@ -1,8 +1,13 @@
 from django.contrib import admin
 
-from .models import Image
+from .models import Image, AnimatedGif
 
 
 @admin.register(Image)
-class AuthorAdmin(admin.ModelAdmin):
+class ImageAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(AnimatedGif)
+class AnimatedGifAdmin(admin.ModelAdmin):
     pass

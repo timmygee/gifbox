@@ -20,11 +20,12 @@ from rest_framework.authtoken.views import obtain_auth_token
 from django.conf.urls.static import static
 from django.conf import settings
 
-from core.viewsets import ImageViewSet
+from core.viewsets import ImageViewSet, AnimatedGifViewSet
 
 
 router = routers.SimpleRouter()
 router.register(r'images', ImageViewSet)
+router.register(r'gifs', AnimatedGifViewSet, base_name='gif')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
