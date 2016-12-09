@@ -15,20 +15,41 @@ class Command(BaseCommand):
         If it has been a day since the last daily gif it will generate another one
     """
 
-    def handle(self, *args, **options):
-        three_hours_ago = timezone.now() - timedelta(hours=3)
-        
-        if not AnimatedGif.objects.filter(period='hourly', created__gte=three_hours_ago).exists():
-            # No gif from the last hour. Generate a new one based on any new snapshot uploaded
-            snapshot_filenames = [
-                snapshot.image.file.name
-                for snapshot in Image.objects.filter(created__gte=three_hours_ago).order_by('created')
-                ]
-            result = subprocess.run(
-                ['convert', '-delay', '30'] +
-                snapshot_filenames +
-                ['-loop', '0', '-resize', '800', '/tmp/3hourly.gif'])
-            if result.returncode:
-                raise CommandError(
-                    'Received error code {} when running {}'.format(result.returncode, result.args))
+    GIF_PROFILES = (
+        {
+            'period': AnimatedGif.PERIOD_3_HOURLY,
+            'created__gte': timezone.now() - timedelta(hours=3),
+            'output_filename': '/tmp/3hourly.gif',
+        },
+        {
+            'period': AnimatedGif.PERIOD_DAILY,
+            'created__gte': timezone.now() - timedelta(days=1),
+            'output_filename': '/tmp/daily.gif',
+        },
+    )
 
+    def make_gif(self, snapshot_filenames, output_filename, delay_ms=30, resize_px=800):
+        result = subprocess.run(
+            ['convert', '-delay', delay_ms] +
+            snapshot_filenames +
+            ['-loop', '0', '-resize', resize_px, output_filename])
+        if result.returncode:
+            raise CommandError(
+                'Received error code {} when running {}'.format(result.returncode, result.args))
+
+    def handle(self, *args, **options):
+        for gif_profile in self.GIF_PROFILES:
+            output_filename = gif_profile.pop('output_filename')
+
+            if not AnimatedGif.objects.filter(**gif_profile).exists():
+                # No gif for the defired time period. Generate a new one based on any new snapshots
+                # uploaded in that time
+                snapshot_filenames = [
+                    snapshot.image.file.name
+                    for snapshot in (
+                        Image.objects
+                            .filter(created__gte=gif_profile['created__gte'])
+                            .order_by('created')
+                        )
+                    ]
+                self.make_gif(snapshot_filenames, output_filename)
