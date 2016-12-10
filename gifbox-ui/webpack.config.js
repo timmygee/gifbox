@@ -8,7 +8,7 @@ module.exports = {
   // entry point
   entry: {
     javascript: "./index.js",
-    html: "./index.html",
+    html: "./public/index.html",
   },
 
   output: {
@@ -31,6 +31,10 @@ module.exports = {
       {
         test: /\.html$/,
         loader: "file?name=[name].[ext]",
+      },
+      { 
+        test: /\.css$/,
+        loader: "style-loader!css-loader",
       }
     ]
   }
