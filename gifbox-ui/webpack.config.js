@@ -1,7 +1,9 @@
 const path = require('path');
+const uiRootPath = path.resolve(__dirname, 'src');
+const buildPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
-  context: __dirname + '/src',
+  context: uiRootPath,
 
   // entry point
   entry: {
@@ -10,13 +12,13 @@ module.exports = {
   },
 
   output: {
-    path: __dirname + '/dist',
+    path: buildPath,
     filename: 'bundle.js',
   },
 
   resolve: {
     extensions: ['', '.js', '.jsx', '.json'],
-    root: path.resolve(__dirname, '/src')
+    root: uiRootPath,
   },
 
   module: {
