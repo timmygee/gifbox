@@ -1,9 +1,8 @@
 {
-  "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
-    "no-unused-vars": 0,
-    "max-len": [1, 100, 2, {"ignoreComments": true}],
-    "prop-types": [2]
+    "jsx-quotes": [2, "prefer-single"],
+    "react/jsx-curly-spacing": [2, "always"],
+    "react/prefer-stateless-function": [0]
   }
 }
