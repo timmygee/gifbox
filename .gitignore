@@ -8,3 +8,6 @@
 # Django
 *.sqlite3
 snapshots/
+
+# JS
+node_modules
