@@ -158,6 +158,14 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = os.environ['DJANGO_AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['DJANGO_AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['DJANGO_AWS_STORAGE_BUCKET_NAME']
+AWS_S3_HOST = os.environ.get('DJANGO_AWS_S3_HOST', 's3.amazonaws.com')
 
 AWS_AUTO_CREATE_BUCKET = True
 AWS_QUERYSTRING_AUTH = False
+
+# django-versatileimagefield
+VERSATILEIMAGEFIELD_SETTINGS = {
+    # Don't create thumbnails and crops on the fly. Rather this is done with the render_thumbs
+    # management command
+    'create_images_on_demand': False,
+}

@@ -19,12 +19,12 @@ class Command(BaseCommand):
         {
             'period': AnimatedGif.PERIOD_3_HOURLY,
             'created__gte': timezone.now() - timedelta(hours=3),
-            'output_filename': '/tmp/3hourly.gif',
+            'output_filename': '/tmp/{}.gif'.format(AnimatedGif.PERIOD_3_HOURLY),
         },
         {
             'period': AnimatedGif.PERIOD_DAILY,
             'created__gte': timezone.now() - timedelta(days=1),
-            'output_filename': '/tmp/daily.gif',
+            'output_filename': '/tmp/{}.gif'.format(AnimatedGif.PERIOD_DAILY),
         },
     )
 

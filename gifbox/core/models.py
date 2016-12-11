@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from django.utils import timezone
 
 from django.db import models
 
@@ -7,13 +7,19 @@ from versatileimagefield.fields import VersatileImageField
 
 
 def snapshot_path(instance, filename):
-    now = datetime.now()
-    return 'snapshots/{}/{}'.format(now.strftime('%Y-%m-%d'), filename)
+    now = timezone.now()
+    return 'snapshots/{date_str}/{date_str}_{time_str}_{filename}'.format(
+        date_str=now.strftime('%Y-%m-%d'),
+        time_str=now.strftime('%H%M%S%f'),
+        filename=filename)
 
 
 def animated_gif_path(instance, filename):
-    now = datetime.now()
-    return 'gifs/{}/{}'.format(now.strftime('%Y-%m-%d'), filename)
+    now = timezone.now()
+    return 'gifs/{date_str}/{date_str}_{time_str}_{filename}'.format(
+        date_str=now.strftime('%Y-%m-%d'),
+        time_str=now.strftime('%H%M%S%f'),
+        filename=filename)
 
 
 class BaseImage(models.Model):
@@ -22,7 +28,6 @@ class BaseImage(models.Model):
         get_latest_by = 'created'
 
     title = models.CharField(max_length=255, blank=True)
-    # TODO: Maybe set this up to be S3 storage rather than file system
     image = VersatileImageField(
         upload_to=snapshot_path, width_field='image_width', height_field='image_height')
     image_height = models.PositiveSmallIntegerField()
