@@ -6,3 +6,4 @@ django-filter==1.0.1
 django-versatileimagefield==1.6.1
 django-storages==1.5.1
 boto==2.44.0
+requests==2.12.3
