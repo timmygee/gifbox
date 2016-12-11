@@ -53,7 +53,5 @@ class AnimatedGif(BaseImage):
 
     image = VersatileImageField(
         upload_to=animated_gif_path, width_field='image_width', height_field='image_height')
-    image_preview = VersatileImageField(
-        upload_to=animated_gif_path, width_field='image_width', height_field='image_height',
-        null=True)
+    image_preview = VersatileImageField(upload_to=animated_gif_path, null=True)
     period = models.CharField(max_length=10, choices=PERIOD_CHOICES)
