@@ -165,7 +165,6 @@ AWS_QUERYSTRING_AUTH = False
 
 # django-versatileimagefield
 VERSATILEIMAGEFIELD_SETTINGS = {
-    # Don't create thumbnails and crops on the fly. Rather this is done with the render_thumbs
-    # management command
-    'create_images_on_demand': False,
+    # Set this to False to not create thumbnails and crops on the fly.
+    'create_images_on_demand': True,
 }
