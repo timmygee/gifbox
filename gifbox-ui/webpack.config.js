@@ -1,4 +1,5 @@
 const path = require('path');
+
 const uiRootPath = path.resolve(__dirname, 'src');
 const buildPath = path.resolve(__dirname, 'dist');
 
@@ -7,8 +8,8 @@ module.exports = {
 
   // entry point
   entry: {
-    javascript: "./index.js",
-    html: "./public/index.html",
+    javascript: './index.js',
+    html: './public/index.html',
   },
 
   output: {
@@ -18,7 +19,10 @@ module.exports = {
 
   resolve: {
     extensions: ['', '.js', '.jsx', '.json'],
-    root: uiRootPath,
+    modules: [
+      path.resolve(uiRootPath),
+      path.resolve('./node_modules'),
+    ],
   },
 
   module: {
@@ -26,16 +30,23 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel-loader']
+        loaders: ['react-hot', 'babel-loader'],
       },
       {
         test: /\.html$/,
-        loader: "file?name=[name].[ext]",
+        loader: 'file?name=[name].[ext]',
       },
-      { 
+      {
         test: /\.css$/,
-        loader: "style-loader!css-loader",
-      }
-    ]
-  }
+        loader: 'style-loader!css-loader',
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
+  // sassLoader: {
+  //   data: '@import "' + path.resolve(__dirname, 'theme/_theme.scss') + '";',
+  // },
 };

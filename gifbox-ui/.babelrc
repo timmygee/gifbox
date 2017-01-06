@@ -2,6 +2,7 @@
   "plugins": [
     "syntax-decorators",
     "transform-decorators-legacy",
+    ["babel-root-slash-import", { rootPathSuffix: 'src' }],
     "transform-class-properties"
   ],
   "presets": [
