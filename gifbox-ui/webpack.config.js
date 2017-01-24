@@ -23,40 +23,32 @@ module.exports = {
   resolve: {
     extensions: ['', '.scss', '.css', '.js', '.json'],
     modules: [
-      path.resolve(uiRootPath),
-      path.resolve(__dirname, './node_modules'),
+      path.resolve(__dirname, 'node_modules'),
     ],
   },
 
   module: {
     loaders: [
       {
-        test: /(\.js|\.jsx)$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel-loader'],
+        loaders: ['babel-loader'],
       },
       {
         test: /\.html$/,
-        loader: 'file?name=[name].[ext]',
+        loader: 'file-loader?name=[name].[ext]',
       },
       {
-        test: /(\.scss|\.css)$/,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: 'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!sass-loader',
-        }),
+        test: /\.(scss|css)$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]&-autoprefix',
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
     ],
   },
 
   postcss: [autoprefixer],
-
-  sassLoader: {
-    data: '@import "theme/_config.scss";',
-    includePaths: [uiRootPath],
-  },
-
-  plugins: [
-    new ExtractTextPlugin({ filename: 'bundle.css', allChunks: true }),
-  ],
 };
