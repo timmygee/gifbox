@@ -10,7 +10,6 @@ const GifItem = (props) => {
 
   return (
     <div>
-      <AppBar>Hi</AppBar>
       <div>
         <img role="presentation" src={ url } />
         Yiewww!

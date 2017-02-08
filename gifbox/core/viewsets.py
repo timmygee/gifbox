@@ -1,5 +1,5 @@
 from rest_framework import viewsets, mixins
-from django_filters.rest_framework import FilterSet
+from django_filters.rest_framework import FilterSet, DjangoFilterBackend
 from django_filters import DateFilter
 
 from .serializers import ImageSerializer, AnimatedGifSerializer
@@ -17,22 +17,11 @@ class AnimatedGifFilterSet(FilterSet):
 
     class Meta:
         model = AnimatedGif
-        fields = ('period',)
+        fields = ('period', 'min_time', 'max_time')
 
 
 class AnimatedGifViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = AnimatedGif.objects.all()
     serializer_class = AnimatedGifSerializer
     filter_class = AnimatedGifFilterSet
-    queryset = AnimatedGif.objects.all()
-
-    # TODO - check if this can be removed. AnimatedGifFilterSet may take care of it all
-    def get_queryset(self):
-        qs = super().get_queryset()
-
-        filters = {}
-        period = self.request.query_params.get('period', None)
-
-        if period:
-            filters['period'] = period
-
-        return qs.filter(**filters)
+    filter_backends = (DjangoFilterBackend,)
