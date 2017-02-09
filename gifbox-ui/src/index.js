@@ -1,14 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
 import App from './App';
+import store from '/store';
+
 
 // Needed to bring in main styles, roboto font etc
 import styles from './styles.scss';
 
 
 const Main = () => (
-  <App className={ styles.body } />
+  <Provider store={ store }>
+    <App className={ styles.body } />
+  </Provider>
 );
 
 ReactDOM.render(
