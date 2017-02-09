@@ -8,9 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --hot --inline --port 3000",
-    "build": "webpack && uglifyjs ./dist/bundle.js -c -m -o ./dist/bundle.min.js --source-map ./dist/bundle.min.js.map",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build": "webpack && uglifyjs ./dist/bundle.js -c -m -o ./dist/bundle.min.js --source-map ./dist/bundle.min.js.map"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
