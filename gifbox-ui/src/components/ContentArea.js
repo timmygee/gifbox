@@ -1,32 +1,26 @@
 import React, { Component } from 'react';
 import { Panel } from 'react-toolbox/lib/layout';
+import { connect } from 'react-redux';
 
 import GifGridList from '/components/GifGridList';
 import LoadingSpinner from '/components/LoadingSpinner';
+
+import { fetchCards } from  '/actions';
+
 import styles from '/styles.scss';
 
 
 class ContentArea extends Component {
   componentDidMount() {
-    const { store } = this.context;
-
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate();
-    });
-
+    const { dispatch } = this.props;
     // Initial data load
-    store.dispatch({
+    dispatch({
       type: 'FETCH_CARDS',
     });
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   render() {
-    const { store } = this.context;
-    const { content } = store.getState();
+    const { content } = this.props;
 
     return (
       <Panel className={ styles['content-area'] }>
@@ -37,9 +31,17 @@ class ContentArea extends Component {
 }
 
 
-ContentArea.contextTypes = {
-  store: React.PropTypes.object,
+ContentArea.propTypes = {
+  dispatch: React.PropTypes.func,
+  content: React.PropTypes.object,
 };
 
 
-export default ContentArea;
+const mapStateToProps = (state) => {
+  const { content } = state;
+
+  return { content };
+};
+
+
+export default connect(mapStateToProps)(ContentArea);

@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { FETCH_CARDS } from '/actions';
+import { REQUEST_GIF_CARDS } from '/actions';
 
-const content = (state = {}, action) => {
+
+const gifCards = (state = {}, action) => {
   switch (action.type) {
-    case FETCH_CARDS:
+    case REQUEST_GIF_CARDS:
       return { ...state, isLoading: true };
     default:
       return state;
@@ -12,6 +13,9 @@ const content = (state = {}, action) => {
 };
 
 
-export default combineReducers({
-  content,
+const rootReducer = combineReducers({
+  gifCards,
 });
+
+
+export default rootReducer;
