@@ -1,12 +1,51 @@
 import { combineReducers } from 'redux';
 
-import { REQUEST_GIF_CARDS } from '/actions';
+import {
+  REQUEST_AUTH_TOKEN, RECEIVE_AUTH_TOKEN, RECEIVE_AUTH_TOKEN_ERROR,
+  REQUEST_GIF_CARDS, RECEIVE_GIF_CARDS, RECEIVE_GIF_CARDS_ERROR,
+} from '/actions';
 
 
-const gifCards = (state = {}, action) => {
-  switch (action.type) {
+const oAuthInitial = {
+  authenticated: false,
+  authenticating: false,
+  error: null,
+};
+
+const oAuth = (state = oAuthInitial, action) => {
+  const { type, error } = action;
+
+  switch (type) {
+    case REQUEST_AUTH_TOKEN:
+      return { ...state, authenticating: true, error: null };
+    case RECEIVE_AUTH_TOKEN:
+      return { ...state, authenticating: false, authenticated: true };
+    case RECEIVE_AUTH_TOKEN_ERROR: {
+      return { ...state, authenticating: false, error };
+    }
+    default:
+      return state;
+  }
+};
+
+
+const gifCardsInitial = {
+  isLoading: false,
+  payload: null,
+  error: null,
+};
+
+const gifCards = (state = gifCardsInitial, action) => {
+  const { type, payload, error } = action;
+
+  switch (type) {
     case REQUEST_GIF_CARDS:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, error: null };
+    case RECEIVE_GIF_CARDS:
+      return { ...state, isLoading: false, payload };
+    case RECEIVE_GIF_CARDS_ERROR: {
+      return { ...state, isLoading: false, error };
+    }
     default:
       return state;
   }
@@ -15,6 +54,7 @@ const gifCards = (state = {}, action) => {
 
 const rootReducer = combineReducers({
   gifCards,
+  oAuth,
 });
 
 

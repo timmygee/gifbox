@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import GifGridList from '/components/GifGridList';
 import LoadingSpinner from '/components/LoadingSpinner';
 
-import { fetchCards } from  '/actions';
+import { fetchGifCards } from  '/actions';
 
 import styles from '/styles.scss';
 
@@ -14,17 +14,15 @@ class ContentArea extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     // Initial data load
-    dispatch({
-      type: 'FETCH_CARDS',
-    });
+    dispatch(fetchGifCards());
   }
 
   render() {
-    const { content } = this.props;
+    const { gifCards } = this.props;
 
     return (
       <Panel className={ styles['content-area'] }>
-        { content.isLoading ? <LoadingSpinner /> : <GifGridList /> }
+        { gifCards.isLoading ? <LoadingSpinner /> : <GifGridList /> }
       </Panel>
     );
   }
@@ -33,14 +31,14 @@ class ContentArea extends Component {
 
 ContentArea.propTypes = {
   dispatch: React.PropTypes.func,
-  content: React.PropTypes.object,
+  gifCards: React.PropTypes.object,
 };
 
 
 const mapStateToProps = (state) => {
-  const { content } = state;
+  const { gifCards } = state;
 
-  return { content };
+  return { gifCards };
 };
 
 
