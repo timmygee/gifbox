@@ -38,7 +38,7 @@ body {
 
     .gif-card {
         margin: 0 $spacer $spacer 0;
-        width: 200px;
+        max-width: 200px;
         min-height: 300px;
 
         .title {

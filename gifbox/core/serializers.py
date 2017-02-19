@@ -21,11 +21,11 @@ class ImageSerializer(serializers.ModelSerializer):
 class AnimatedGifSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnimatedGif
-        fields = ('image',)
+        fields = ('id', 'image', 'created', 'period')
 
     image = VersatileImageFieldSerializer(
         sizes=[
-            ('full_size', 'url'),
-            ('thumbnail', 'thumbnail__200x200'),
+            ('full_size_url', 'url'),
+            ('thumbnail_url', 'thumbnail__200x200'),
         ]
     )

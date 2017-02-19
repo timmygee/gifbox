@@ -8,7 +8,7 @@ import styles from '/styles.scss';
 const GifGridList = ({ payload }) => (
   <div className={ styles['gif-grid'] }>
     {
-      payload.results.map((item, index) => <GifCard key={ index } url={ item.image.thumbnail } />)
+      payload.results.map(item => <GifCard key={ item.id } data={ item } />)
     }
   </div>
 );

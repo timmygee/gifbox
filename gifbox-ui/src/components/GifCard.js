@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+import moment from 'moment';
 
 import LoadingSpinner from '/components/LoadingSpinner';
 import styles from '/styles.scss';
@@ -14,28 +15,35 @@ class GifCard extends Component {
   }
 
   handleImageLoaded() {
-    console.log('image loaded')
     this.setState({ imageLoaded: true });
   }
 
   render() {
-    const { url } = this.props;
     const { imageLoaded } = this.state;
+    const { data } = this.props;
+    const { image, created, period } = data;
+
+    const createdDate = moment(created);
+    const dateExpression = period === 'daily' ? createdDate.format('ddd D/M/YYYY') : createdDate.format('ddd D/M/YYYY H:m a');
 
     return (
       <Card className={ styles['gif-card'] }>
-        { !imageLoaded && <LoadingSpinner /> }
-        { imageLoaded && <CardTitle className={ styles.title }>My title</CardTitle> }
-        <CardMedia className={ imageLoaded ? styles.image : styles.hidden } >
-          <img src={ url } onLoad={ ::this.handleImageLoaded } />
+        <CardMedia className={ styles.image } >
+          { !imageLoaded && <LoadingSpinner /> }
+          <img className={ !imageLoaded && styles.hidden } src={ image.thumbnail_url } onLoad={ ::this.handleImageLoaded } />
         </CardMedia>
+        <CardTitle 
+          className={ styles.title }
+          title={ dateExpression }
+          subtitle={ period }
+        />
       </Card>
     );
   }
 };
 
 GifCard.propTypes = {
-  url: React.PropTypes.string,
+  data: React.PropTypes.object,
 };
 
 export default GifCard;
