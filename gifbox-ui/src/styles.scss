@@ -5,8 +5,16 @@ body {
     margin: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 .layout {
     height: 100vh;
+}
+
+.panel-main {
+    width: 100%;
 }
 
 .content-area {
@@ -25,13 +33,19 @@ body {
     }
 }
 
-.gif-card {
-    margin: 0 $spacer $spacer 0;
-    max-width: 200px;
+.gif-grid {
+    display: flex;
 
-    .image {
-        width: 200px;
-        height: 150px;
+    .gif-card {
+        margin: 0 $spacer $spacer 0;
+        max-width: 200px;
+        min-height: 300px;
+
+        .image {
+            width: 200px;
+            height: 150px;
+        }
     }
 }
+
 

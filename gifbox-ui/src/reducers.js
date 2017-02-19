@@ -30,7 +30,7 @@ const oAuth = (state = oAuthInitial, action) => {
 
 
 const gifCardsInitial = {
-  isLoading: false,
+  loading: true,
   payload: null,
   error: null,
 };
@@ -40,11 +40,11 @@ const gifCards = (state = gifCardsInitial, action) => {
 
   switch (type) {
     case REQUEST_GIF_CARDS:
-      return { ...state, isLoading: true, error: null };
+      return { ...state, loading: true, error: null };
     case RECEIVE_GIF_CARDS:
-      return { ...state, isLoading: false, payload };
+      return { ...state, loading: false, payload };
     case RECEIVE_GIF_CARDS_ERROR: {
-      return { ...state, isLoading: false, error };
+      return { ...state, loading: false, error };
     }
     default:
       return state;

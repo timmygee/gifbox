@@ -25,7 +25,7 @@ class ApiConsumer {
 
   static get headersBase() {
     return {
-      Accept: 'application/json, */*',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
       'Accept-Encoding': 'gzip, deflate',
       Connection: 'keep-alive',
@@ -51,11 +51,10 @@ class ApiConsumer {
     Object.keys(data)
       .forEach(key => url.searchParams.append(key, data[key]));
 
-    console.log({ ...this.headersBase, ...this.authTokenHeaders, ...headers })
     return fetch(url, {
       method: 'GET',
       redirect: 'follow',
-      headers: { ...this.headersBase, ...this.authTokenHeaders, ...headers },
+      headers: { ...ApiConsumer.headersBase, ...this.authTokenHeaders, ...headers },
     })
     .catch((error) => {
       console.error(`Error when GETting ${url}`, error); // eslint-disable-line no-console
@@ -70,13 +69,12 @@ class ApiConsumer {
   }
 
   post(path = '/', data = {}, headers = {}) {
-    // POST form data, recieve bacon! Sorry, JSON
     const url = `${this.baseEndpoint}${ApiConsumer.normalisePath(path)}/`;
-    console.log(data)
+    console.log('POST', data)
     return fetch(url, {
       method: 'POST',
       redirect: 'follow',
-      headers: { ...this.headersBase, ...this.authTokenHeaders, ...headers },
+      headers: { ...ApiConsumer.headersBase, ...this.authTokenHeaders, ...headers },
       body: JSON.stringify(data),
     })
     .catch((error) => {
@@ -94,7 +92,7 @@ class ApiConsumer {
   oAuthenticate(relAuthPath, username, password) {
     // Takes a username and password and stores the auth token internally for use in
     // future requests
-    return this.post(relAuthPath, {}, { username, password })
+    return this.post(relAuthPath, { username, password })
       .then((json) => {
         this.setAuthToken(json.token);
       });

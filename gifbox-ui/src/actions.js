@@ -28,7 +28,7 @@ export const fetchAuthToken = (username, password) => (dispatch) => {
   dispatch(requestAuthToken());
 
   return apiConsumer
-    .oAuthenticate('obtain-auth-token', username, password)
+    .oAuthenticate('/obtain-auth-token', username, password)
     .catch(error => dispatch(receiveAuthTokenError(error)))
     .then(json => dispatch(receiveAuthToken(json)));
 };

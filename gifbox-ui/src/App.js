@@ -1,23 +1,40 @@
 import React, { Component } from 'react';
-import { Layout, NavDrawer, Panel, Sidebar } from 'react-toolbox/lib/layout';
-import { AppBar } from 'react-toolbox/lib/app_bar';
+import { connect } from 'react-redux';
+import { Layout } from 'react-toolbox/lib/layout';
 
-import ContentArea from '/components/ContentArea';
+import { fetchAuthToken } from  '/actions';
+import AppInterface from '/components/AppInterface';
+import LoadingSpinner from '/components/LoadingSpinner';
 import styles from '/styles.scss';
 
-// TODO get this component calling auth before it renders the content area
+
 class App extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    // Authenticate with REST API
+    dispatch(fetchAuthToken('tim', 'testings'));
+  }
+
   render() {
+    const { oAuth } = this.props;
+    const { authenticated } = oAuth;
+
     return (
       <Layout className={ styles.layout }>
-        <NavDrawer>Stuff</NavDrawer>
-        <Panel>
-          <AppBar>Stuff</AppBar>
-          <ContentArea />
-        </Panel>
+        { authenticated ? <AppInterface /> : <LoadingSpinner /> }
       </Layout>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  dispatch: React.PropTypes.func,
+  oAuth: React.PropTypes.object,
+};
+
+const mapStateToProps = (state) => {
+  const { oAuth } = state;
+  return { oAuth };
+};
+
+export default connect(mapStateToProps)(App);

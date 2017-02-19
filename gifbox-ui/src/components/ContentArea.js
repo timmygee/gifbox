@@ -22,7 +22,7 @@ class ContentArea extends Component {
 
     return (
       <Panel className={ styles['content-area'] }>
-        { gifCards.isLoading ? <LoadingSpinner /> : <GifGridList /> }
+        { gifCards.loading ? <LoadingSpinner /> : <GifGridList payload={ gifCards.payload } /> }
       </Panel>
     );
   }
@@ -37,7 +37,6 @@ ContentArea.propTypes = {
 
 const mapStateToProps = (state) => {
   const { gifCards } = state;
-
   return { gifCards };
 };
 
