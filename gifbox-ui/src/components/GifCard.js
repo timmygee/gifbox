@@ -25,7 +25,7 @@ class GifCard extends Component {
     return (
       <Card className={ styles['gif-card'] }>
         { !imageLoaded && <LoadingSpinner /> }
-        { imageLoaded && <CardTitle>My title</CardTitle> }
+        { imageLoaded && <CardTitle className={ styles.title }>My title</CardTitle> }
         <CardMedia className={ imageLoaded ? styles.image : styles.hidden } >
           <img src={ url } onLoad={ ::this.handleImageLoaded } />
         </CardMedia>
