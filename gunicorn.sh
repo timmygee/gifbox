@@ -9,10 +9,10 @@ APP_NAME=gifbox
 USER=tim
 GROUP=$USER
 
-DJANGO_DIR=$HOME/$APP_NAME/$APP_NAME
+DJANGO_DIR=$HOME/djropbox/$APP_NAME
 
 cd $DJANGO_DIR
-source $HOME/.virtualenvs/$APP_NAME/bin/activate
+source $HOME/.virtualenvs/djropbox/bin/activate
 
 DOMAIN_NAME=$DJANGO_PRODUCTION_HOST
 LOGFILE=$HOME/$DOMAIN_NAME/logs/$APP_NAME.log
