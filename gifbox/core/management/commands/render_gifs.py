@@ -26,11 +26,11 @@ class Command(BaseCommand):
             'created__gte': timezone.now() - timedelta(hours=3),
             'output_file_path': '/tmp/{}.gif'.format(AnimatedGif.PERIOD_3_HOURLY),
         },
-        {
-            'period': AnimatedGif.PERIOD_DAILY,
-            'created__gte': timezone.now() - timedelta(days=1),
-            'output_file_path': '/tmp/{}.gif'.format(AnimatedGif.PERIOD_DAILY),
-        },
+        # {
+        #     'period': AnimatedGif.PERIOD_DAILY,
+        #     'created__gte': timezone.now() - timedelta(days=1),
+        #     'output_file_path': '/tmp/{}.gif'.format(AnimatedGif.PERIOD_DAILY),
+        # },
     )
 
     GIF_VERSIONS = (
@@ -44,7 +44,7 @@ class Command(BaseCommand):
         },
     )
 
-    def make_gif(self, snapshot_image_urls, output_file_path, delay_ms='30', resize_px='640'):
+    def make_gif(self, snapshot_image_urls, output_file_path, delay_ms='30', resize_px='800'):
         scratch_dir = tempfile.mkdtemp()
         self.stdout.write('Using scratch dir {}'.format(scratch_dir))
 
