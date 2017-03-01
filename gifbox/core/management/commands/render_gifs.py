@@ -93,14 +93,12 @@ class Command(BaseCommand):
             if not AnimatedGif.objects.filter(**gif_profile).exists():
                 # No gif for the defired time period. Generate a new one based on any new snapshots
                 # uploaded in that time
-                snapshot_image_fields = [
-                    snapshot.image
-                    for snapshot in (
-                        Image.objects
-                            .filter(created__gte=gif_profile['created__gte'])
-                            .order_by('created')
-                        )
-                    ]
+                snapshots_to_render = (
+                    Image.objects
+                        .filter(created__gte=gif_profile['created__gte'])
+                        .order_by('created'))
+
+                snapshot_image_fields = [snapshot.image for snapshot in snapshots_to_render]
 
                 # Create the new AnimatedGif instance but don't save it yet
                 gif_instance = AnimatedGif(
@@ -129,5 +127,8 @@ class Command(BaseCommand):
                         image_field.save(file_name, image_data)
 
                 gif_instance.save()
+
+                # Now go ahead and delete the snapshots to conserve space
+                snapshots_to_render.delete()
 
         self.stdout.write(self.style.SUCCESS('Process complete'))
