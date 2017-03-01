@@ -129,6 +129,9 @@ class Command(BaseCommand):
                 gif_instance.save()
 
                 # Now go ahead and delete the snapshots to conserve space
-                snapshots_to_render.delete()
+                # They need to be individually deleted so the corresponding image file in S3
+                # storage is deleted as well
+                for snapshot in snapshots_to_render:
+                    snapshot.delete()
 
         self.stdout.write(self.style.SUCCESS('Process complete'))
