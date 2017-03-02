@@ -44,7 +44,7 @@ class Command(BaseCommand):
         },
     )
 
-    def make_gif(self, snapshot_image_urls, output_file_path, delay_ms='30', resize_px='800'):
+    def make_gif(self, snapshot_image_urls, output_file_path, delay_ms='30'):
         if not snapshot_image_urls:
             return
 
