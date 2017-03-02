@@ -1,9 +1,7 @@
 import ApiConsumer from '/api-consumer';
 
 
-const HOST = 'localhost:8000';
-
-const apiConsumer = new ApiConsumer(HOST);
+const apiConsumer = new ApiConsumer();
 
 
 // Action creators //
