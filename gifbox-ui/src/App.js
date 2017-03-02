@@ -9,15 +9,18 @@ import styles from '/styles.scss';
 
 
 class App extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-    // Authenticate with REST API
-    dispatch(fetchAuthToken('tim', 'testings'));
-  }
+  // UNCOMMENT TO ENABLE OAUTH
+  // componentDidMount() {
+  //   const { dispatch } = this.props;
+  //   // Authenticate with REST API
+  //   dispatch(fetchAuthToken('user', 'password'));
+  // }
 
   render() {
-    const { oAuth } = this.props;
-    const { authenticated } = oAuth;
+    // UNCOMMENT TO ENABLE OAUTH
+    // const { oAuth } = this.props;
+    // const { authenticated } = oAuth;
+    const authenticated = true;
 
     return (
       <Layout className={ styles.layout }>

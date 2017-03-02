@@ -7,7 +7,7 @@ import {
 
 
 const oAuthInitial = {
-  authenticated: false,
+  authenticated: true,
   authenticating: false,
   error: null,
 };

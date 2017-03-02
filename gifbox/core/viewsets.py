@@ -1,4 +1,4 @@
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, permissions
 from django_filters.rest_framework import FilterSet, DjangoFilterBackend
 from django_filters import DateFilter
 
@@ -25,3 +25,4 @@ class AnimatedGifViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = AnimatedGifSerializer
     filter_class = AnimatedGifFilterSet
     filter_backends = (DjangoFilterBackend,)
+    permission_classes = [permissions.AllowAny]
